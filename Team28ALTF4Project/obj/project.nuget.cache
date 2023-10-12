@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iU6YSS+uyqNN4UMcHBUsi8jlAKhjRoXXAm92kjCWE4eJGzQ1xsPINiJea1H9rgOfWCA8DvvZkwd/IBPSglBW3g==",
+  "dgSpecHash": "ltj31Kr8uA/QPfYNFI84IjBsTDImFaF8BTtnJH5nofyCJi35f7CvH7zaGcUujKSdxBXquQSfmCbuijvms9CT6A==",
   "success": true,
-  "projectFilePath": "E:\\School Projects\\Team28BrandonT-Part\\team28-alt-f4-project\\Team28ALTF4Project\\Team28ALTF4Project.csproj",
+  "projectFilePath": "E:\\School Projects\\Team28-BookDetails\\Team28ALTF4Project\\Team28ALTF4Project.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\brand\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
     "C:\\Users\\brand\\.nuget\\packages\\k4os.compression.lz4\\1.3.5\\k4os.compression.lz4.1.3.5.nupkg.sha512",

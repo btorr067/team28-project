@@ -2232,11 +2232,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\School Projects\\Team28BrandonT-Part\\team28-alt-f4-project\\Team28ALTF4Project\\Team28ALTF4Project.csproj",
+      "projectUniqueName": "E:\\School Projects\\Team28-BookDetails\\Team28ALTF4Project\\Team28ALTF4Project.csproj",
       "projectName": "Team28ALTF4Project",
-      "projectPath": "E:\\School Projects\\Team28BrandonT-Part\\team28-alt-f4-project\\Team28ALTF4Project\\Team28ALTF4Project.csproj",
+      "projectPath": "E:\\School Projects\\Team28-BookDetails\\Team28ALTF4Project\\Team28ALTF4Project.csproj",
       "packagesPath": "C:\\Users\\brand\\.nuget\\packages\\",
-      "outputPath": "E:\\School Projects\\Team28BrandonT-Part\\team28-alt-f4-project\\Team28ALTF4Project\\obj\\",
+      "outputPath": "E:\\School Projects\\Team28-BookDetails\\Team28ALTF4Project\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
