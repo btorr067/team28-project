@@ -81,6 +81,41 @@ namespace Team28BookDetails.Controllers
             }
         }
 
+        [HttpGet("GetBookByISBN")]
+        public JsonResult Get(String iSBN)
+        {
+            string query = @"
+                        select ISBN, BookName, BookDescription, Price, Author, Genre, Publisher, YearPublished, CopiesSold
+                        from book_details
+                        where ISBN = @ISBN;
+            ";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            MySqlDataReader myReader;
+            using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
+            {
+                mycon.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
+                {
+                    myCommand.Parameters.AddWithValue("@ISBN", iSBN);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    mycon.Close();
+                }
+            }
+
+            if (table.Rows.Count == 0)
+            {
+                return new JsonResult("ISBN Does not Exist!");
+            }
+
+            return new JsonResult(table);
+        }
+
         [HttpPost("PostBookDetails")]
         public JsonResult Post(Book_Details bookDetails)
         {
