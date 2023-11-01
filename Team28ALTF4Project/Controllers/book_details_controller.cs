@@ -17,6 +17,105 @@ namespace Team28BookDetails.Controllers
             _configuration = configuration;
         }
 
+        [HttpPost("CheckifBook_DetailsTableExists")]
+        public JsonResult Post()
+        {
+
+            
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            MySqlDataReader myReader;
+            using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
+            {
+                string tableName = "book_details";
+                string query = $"SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '{mycon.Database}' AND table_name = '{tableName}'";
+
+
+                mycon.Open();
+                try {
+                    using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
+                    {
+                        int count = Convert.ToInt32(myCommand.ExecuteScalar());
+
+                        if (count > 0)
+                        {
+                            return new JsonResult("Table Exists");
+                        }
+
+                        myReader = myCommand.ExecuteReader();
+                        table.Load(myReader);
+
+                        myReader.Close();
+                        mycon.Close();
+                    }
+                } 
+                catch {
+                    string newQuery = $"CREATE TABLE '{tableName}' (    " +
+                        $"ISBN int NOT NULL," +
+                        $"BookName varchar(200)," +
+                        $"BookDescription varchar(1000)," +
+                        $"Price decimal(4,2)," +
+                        $"Author varchar(150)," +
+                        $"Genre varchar(100)," +
+                        $"Publisher varchar(150)," +
+                        $"YearPublished int(255)," +
+                        $"CopiesSold int(255)," +
+                        $"PRIMARY KEY (ISBN));'";
+
+                    using (MySqlCommand myNewCommand = new MySqlCommand(newQuery, mycon))
+                    {
+                        myNewCommand.ExecuteNonQuery();
+
+                        myReader = myNewCommand.ExecuteReader();
+                        table.Load(myReader);
+
+                        myReader.Close();
+                        mycon.Close();
+
+                        return new JsonResult("Table Doesn't Exist, it has been created.");
+                    }
+                }
+
+                return new JsonResult("Connection was never established");
+            }
+        }
+
+        [HttpGet("GetBookByISBN")]
+        public JsonResult Get(String iSBN)
+        {
+            string query = @"
+                        select ISBN, BookName, BookDescription, Price, Author, Genre, Publisher, YearPublished, CopiesSold
+                        from book_details
+                        where ISBN = @ISBN;
+            ";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            MySqlDataReader myReader;
+            using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
+            {
+                mycon.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
+                {
+                    myCommand.Parameters.AddWithValue("@ISBN", iSBN);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    mycon.Close();
+                }
+            }
+
+            if (table.Rows.Count == 0)
+            {
+                return new JsonResult("ISBN Does not Exist!");
+            }
+
+            return new JsonResult(table);
+        }
+
         [HttpPost("PostBookDetails")]
         public JsonResult Post(Book_Details bookDetails)
         {
@@ -51,6 +150,47 @@ namespace Team28BookDetails.Controllers
                     mycon.Close();
                 }
             }
+
+            return new JsonResult("Added Successfully!");
+        }
+
+        [HttpPost("PostAuthorDetails")]
+        public JsonResult Post(Author_Details authorDetails)
+        {
+            string query = @"
+                        INSERT INTO author_details (FirstName, LastName, Biography, Publisher)
+                        VALUES (@FirstName, @LastName, @Biography, @Publisher);
+
+            ";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            MySqlDataReader myReader;
+
+            try
+            {
+                using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
+                {
+                    mycon.Open();
+                    using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
+                    {
+                        myCommand.Parameters.AddWithValue("@FirstName", authorDetails.FirstName);
+                        myCommand.Parameters.AddWithValue("@LastName", authorDetails.LastName);
+                        myCommand.Parameters.AddWithValue("@Biography", authorDetails.Biography);
+                        myCommand.Parameters.AddWithValue("@Publisher", authorDetails.Publisher);
+
+                        myReader = myCommand.ExecuteReader();
+                        table.Load(myReader);
+
+                        myReader.Close();
+                        mycon.Close();
+                    }
+                }
+            } catch
+            {
+                return new JsonResult("This failed, probably due to author already existing...");
+            }
+            
 
             return new JsonResult("Added Successfully!");
         }
