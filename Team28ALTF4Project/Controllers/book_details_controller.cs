@@ -153,5 +153,46 @@ namespace Team28BookDetails.Controllers
 
             return new JsonResult("Added Successfully!");
         }
+
+        [HttpPost("PostAuthorDetails")]
+        public JsonResult Post(Author_Details authorDetails)
+        {
+            string query = @"
+                        INSERT INTO author_details (FirstName, LastName, Biography, Publisher)
+                        VALUES (@FirstName, @LastName, @Biography, @Publisher);
+
+            ";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            MySqlDataReader myReader;
+
+            try
+            {
+                using (MySqlConnection mycon = new MySqlConnection(sqlDataSource))
+                {
+                    mycon.Open();
+                    using (MySqlCommand myCommand = new MySqlCommand(query, mycon))
+                    {
+                        myCommand.Parameters.AddWithValue("@FirstName", authorDetails.FirstName);
+                        myCommand.Parameters.AddWithValue("@LastName", authorDetails.LastName);
+                        myCommand.Parameters.AddWithValue("@Biography", authorDetails.Biography);
+                        myCommand.Parameters.AddWithValue("@Publisher", authorDetails.Publisher);
+
+                        myReader = myCommand.ExecuteReader();
+                        table.Load(myReader);
+
+                        myReader.Close();
+                        mycon.Close();
+                    }
+                }
+            } catch
+            {
+                return new JsonResult("This failed, probably due to author already existing...");
+            }
+            
+
+            return new JsonResult("Added Successfully!");
+        }
     }
 }
