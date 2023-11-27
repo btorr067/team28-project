@@ -116,3 +116,9 @@ E:\School Projects\Team28-BookDetails\Team28ALTF4Project\obj\Debug\net6.0\refint
 E:\School Projects\Team28-BookDetails\Team28ALTF4Project\obj\Debug\net6.0\Team28ALTF4Project.pdb
 E:\School Projects\Team28-BookDetails\Team28ALTF4Project\obj\Debug\net6.0\Team28ALTF4Project.genruntimeconfig.cache
 E:\School Projects\Team28-BookDetails\Team28ALTF4Project\obj\Debug\net6.0\ref\Team28ALTF4Project.dll
+E:\School Projects\Team28-BookDetails\Team28ALTF4Project\obj\Debug\net6.0\Team28ALTF4Project.sourcelink.json
+E:\School Projects\Team28-BookDetails\Team28ALTF4Project\obj\Debug\net6.0\staticwebassets\msbuild.Team28ALTF4Project.Microsoft.AspNetCore.StaticWebAssets.props
+E:\School Projects\Team28-BookDetails\Team28ALTF4Project\obj\Debug\net6.0\staticwebassets\msbuild.build.Team28ALTF4Project.props
+E:\School Projects\Team28-BookDetails\Team28ALTF4Project\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Team28ALTF4Project.props
+E:\School Projects\Team28-BookDetails\Team28ALTF4Project\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Team28ALTF4Project.props
+E:\School Projects\Team28-BookDetails\Team28ALTF4Project\obj\Debug\net6.0\staticwebassets.pack.json
